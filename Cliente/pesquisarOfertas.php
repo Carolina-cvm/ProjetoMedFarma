@@ -34,8 +34,8 @@
     <div class="w3-main w3-container" style="margin-left:270px;margin-top:117px;">
 
         <div class="w3-panel w3-padding-large w3-card-4 w3-light-grey">
-            <h1 class="w3-xxlarge">Relação dos Medicamentos</h1>
-            <form method="POST" action="pesquisar.php">
+            <h1 class="w3-xxlarge">Relação de Ofertas</h1>
+            <form method="POST" action="pesquisarOfertas.php">
 
 
             <input type="text" class="css-input" name="pesquisar" placeholder="Pesquisar Medicamento">
@@ -96,36 +96,33 @@
                     
 
                     // Faz Select na Base de Dados
-                    $sql = "SELECT * FROM medicamento WHERE nome LIKE '%$pesquisar%' LIMIT 5";
+                    $sql = "SELECT * FROM ofertamedicamento WHERE nome LIKE '%$pesquisar%' LIMIT 5";
                     echo "<div class='w3-responsive w3-card-4'>";
                     if ($result = mysqli_query($conn, $sql)) {
                         echo "<table class='w3-table-all'>";
-                        echo "	<tr>";
-                        
-                        echo "	  <th> Id Medicamento</th>";
-                      
+                        echo "	<tr>";        
+                        echo "	  <th> Id Oferta</th>";
                         echo "	  <th>Nome</th>";
-                        echo "	  <th>Gramagem</th>";
+                        echo "	  <th>Informaçoes</th>";
                         echo "	  <th>Valor</th>";
                         echo "	  <th> </th>";
                         echo "	  <th> </th>";
-                        echo "	</tr>";
+                        echo "	</tr>";;
                         
                         if (mysqli_num_rows($result) > 0) {
                             // Apresenta cada linha da tabela
                             while ($row = mysqli_fetch_assoc($result)) { 
-                                $cod = $row["idMedicamento"];
+                                $cod = $row["idOfertas"];
                                 echo "<tr>";
-                                echo "<td>";
-                                
+                                echo "<td>";      
                                 echo $cod;
-                                
                                 echo "</td><td>";
                                 echo $row["Nome"];
                                 echo "</td><td>";
-                                echo $row["Gramagem"];
+                                echo $row["Informacoes"];
                                 echo "</td><td>";
-                                echo $row["Valor"];
+                                echo "R$";
+                                echo  $row["Valor"];
                                 echo "</td><td>";
                                 //Atualizar e Excluir registro de prof
 

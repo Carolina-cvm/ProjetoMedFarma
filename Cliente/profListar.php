@@ -71,14 +71,8 @@
                     $password = "rany";
                     $database = "MedFarma";
 
-
-
                     // Cria conexão
                     $conn = mysqli_connect($servername, $username, $password, $database);
-
-                    $pesquisar = $_POST['pesquisar'];
-                    
-                    
                     
                     // Verifica conexão 
                     if (!$conn) {
@@ -96,8 +90,7 @@
                     
 
                     // Faz Select na Base de Dados
-                    $sql = "SELECT * FROM medicamento WHERE nome LIKE '%$pesquisar%' LIMIT 5";
-                    echo "<div class='w3-responsive w3-card-4'>";
+                    $sql = "SELECT * FROM medicamento";
                     if ($result = mysqli_query($conn, $sql)) {
                         echo "<table class='w3-table-all'>";
                         echo "	<tr>";
@@ -106,45 +99,36 @@
                       
                         echo "	  <th>Nome</th>";
                         echo "	  <th>Gramagem</th>";
+                       
                         echo "	  <th>Valor</th>";
+                         echo "	  <th>Endereço</th>";
                         echo "	  <th> </th>";
                         echo "	  <th> </th>";
                         echo "	</tr>";
-                        
                         if (mysqli_num_rows($result) > 0) {
                             // Apresenta cada linha da tabela
                             while ($row = mysqli_fetch_assoc($result)) { 
                                 $cod = $row["idMedicamento"];
                                 echo "<tr>";
                                 echo "<td>";
-                                
                                 echo $cod;
-                                
                                 echo "</td><td>";
                                 echo $row["Nome"];
                                 echo "</td><td>";
-                                echo $row["Gramagem"];
+                                echo $row["Gramagem"];                    
                                 echo "</td><td>";
+                                echo "R$";
                                 echo $row["Valor"];
                                 echo "</td><td>";
+                                echo $row["Endereco"];
+                                echo "</td><td>";
                                 //Atualizar e Excluir registro de prof
-
-
                 ?>
-                            <a href='index.php'><img src='imagens/Edit.png' title='Editar Professor' width='32'></a>
-                            </td><td>
                             
+                            <a href='compra.php?id=<?php echo $cod; ?>'><img src='imagens/Edit.png' title='Realizando Comprar' width='32'></a>
+                            </td><td>
                 <?php
                             }
-                        }
-                        else {
-                            
-                            echo "</td><td>";
-                            echo "</td><td>";
-                            echo "Medicamento não encontrado";
-                            
-                            
-                            
                         }
                             echo "</table>";
                             echo "</div>";
